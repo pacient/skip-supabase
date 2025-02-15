@@ -57,7 +57,7 @@ public class SupabaseClient {
             install(Auth) {
                 // enable only when running in Robolectric tests
 //                if System.getProperty("skip_supabase_auth_minimalSettings") != nil {
-//                    minimalSettings() // “Applies minimal settings to the [AuthConfig]. This is useful for server side applications, where you don't need to store the session or code verifier.”
+                    minimalSettings() // “Applies minimal settings to the [AuthConfig]. This is useful for server side applications, where you don't need to store the session or code verifier.”
 //                }
 
                 // needed or else NPE on startup: https://github.com/supabase-community/supabase-kt/issues/69
