@@ -56,9 +56,9 @@ public class SupabaseClient {
 
             install(Auth) {
                 // enable only when running in Robolectric tests
-                if System.getProperty("skip_supabase_auth_minimalSettings") != nil {
-                    minimalSettings() // “Applies minimal settings to the [AuthConfig]. This is useful for server side applications, where you don't need to store the session or code verifier.”
-                }
+//                if System.getProperty("skip_supabase_auth_minimalSettings") != nil {
+//                    minimalSettings() // “Applies minimal settings to the [AuthConfig]. This is useful for server side applications, where you don't need to store the session or code verifier.”
+//                }
 
                 // needed or else NPE on startup: https://github.com/supabase-community/supabase-kt/issues/69
                 // and java.lang.ExceptionInInitializerError: Exception java.lang.IllegalStateException: Failed to create default settings for SettingsSessionManager. You might have to provide a custom settings instance or a custom session manager. Learn more at https://github.com/supabase-community/supabase-kt/wiki/Session-Saving
