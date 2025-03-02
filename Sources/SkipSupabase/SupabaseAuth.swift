@@ -84,7 +84,7 @@ public class AuthClient {
         scopes: String? = nil,
         queryParams: [(name: String, value: String?)] = [],
         launchFlow: @MainActor @Sendable (_ url: URL) async throws -> URL
-      ) async throws -> Session {
+      ) async throws {
           try await auth.signInWith(provider.kotlinProvider)
     }
 
