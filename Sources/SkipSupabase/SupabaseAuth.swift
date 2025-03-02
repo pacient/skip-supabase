@@ -47,6 +47,11 @@ public class AuthClient {
         return Session(session: session)
     }
 
+    public var currentUser: User? {
+        // SKIP NOWARN
+        auth.retrieveUserForCurrentSession(updateSession: true)
+    }
+
     public func signIn(email: String, password: String, captchaToken: String? = nil) async throws {
         // SKIP NOWARN
         try await auth.signInWith(io.github.jan.supabase.auth.providers.builtin.Email) {
