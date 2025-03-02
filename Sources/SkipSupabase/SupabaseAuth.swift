@@ -47,11 +47,6 @@ public class AuthClient {
         return Session(session: session)
     }
 
-    public var currentUser: User? {
-        // SKIP NOWARN
-        auth.retrieveUserForCurrentSession(updateSession: true)
-    }
-
     public func signIn(email: String, password: String, captchaToken: String? = nil) async throws {
         // SKIP NOWARN
         try await auth.signInWith(io.github.jan.supabase.auth.providers.builtin.Email) {
@@ -83,9 +78,31 @@ public class AuthClient {
         try await auth.signInAnonymously(data: dict2JsonObject(data), captchaToken: captchaToken)
     }
 
+    public func signInWithOAuth(
+        provider: Provider,
+        redirectTo: URL? = nil,
+        scopes: String? = nil,
+        queryParams: [(name: String, value: String?)] = [],
+        launchFlow: @MainActor @Sendable (_ url: URL) async throws -> URL
+      ) async throws -> Session {
+          try await auth.signInWith(provider.kotlinProvider)
+    }
+
     public func signOut(scope: SignOutScope = .global) async throws {
         // SKIP NOWARN
         try await auth.signOut(scope.kotlinScope)
+    }
+}
+
+public enum Provider: String, Sendable {
+    case apple
+    case google
+
+    var kotlinProvider: io.github.jan.supabase.auth.providers.OAuthProvider {
+        switch self {
+        case .apple: return io.github.jan.supabase.auth.providers.OAuthProvider.APPLE
+        case .google: return io.github.jan.supabase.auth.providers.OAuthProvider.GOOGLE
+        }
     }
 }
 
