@@ -40,12 +40,13 @@ public class AuthClient {
     }
 
     public var currentSession: Session? {
-        auth.awaitInitialization()
-        guard let session = auth.currentSessionOrNull() else {
-            return nil
+        get async {
+            await auth.awaitInitialization()
+            guard let session = auth.currentSessionOrNull() else {
+                return nil
+            }
+            return Session(session: session)
         }
-
-        return Session(session: session)
     }
 
     public func signIn(email: String, password: String, captchaToken: String? = nil) async throws {
