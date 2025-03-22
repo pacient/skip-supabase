@@ -40,6 +40,7 @@ public class AuthClient {
     }
 
     public var currentSession: Session? {
+        auth.awaitInitialization()
         guard let session = auth.currentSessionOrNull() else {
             return nil
         }
@@ -49,6 +50,7 @@ public class AuthClient {
 
     public func signIn(email: String, password: String, captchaToken: String? = nil) async throws {
         // SKIP NOWARN
+        auth.awaitInitialization()
         try await auth.signInWith(io.github.jan.supabase.auth.providers.builtin.Email) {
             self.email = email
             self.password = password
@@ -58,6 +60,7 @@ public class AuthClient {
 
     public func signUp(email: String, password: String) async throws {
         // SKIP NOWARN
+        auth.awaitInitialization()
         try await auth.signUpWith(io.github.jan.supabase.auth.providers.builtin.Email) {
             self.email = email
             self.password = password
@@ -66,6 +69,7 @@ public class AuthClient {
 
     public func signIn(phone: String, password: String, captchaToken: String? = nil) async throws {
         // SKIP NOWARN
+        auth.awaitInitialization()
         try await auth.signInWith(io.github.jan.supabase.auth.providers.builtin.Phone) {
             self.phone = phone
             self.password = password
@@ -75,6 +79,7 @@ public class AuthClient {
 
     public func signInAnonymously(data: [String: AnyJSON]? = nil, captchaToken: String? = nil) async throws {
         // SKIP NOWARN
+        auth.awaitInitialization()
         try await auth.signInAnonymously(data: dict2JsonObject(data), captchaToken: captchaToken)
     }
 
